@@ -66,7 +66,7 @@ class Terrain
     /**
      * @var string
      *
-     * @ORM\Column(name="zipcode", type="string", length=128)
+     * @ORM\Column(name="zipcode", type="string", length=16)
      */
     private $zipcode;
 
@@ -280,4 +280,3 @@ class Terrain
         return $this->country;
     }
 }
-
