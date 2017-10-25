@@ -5,18 +5,13 @@ namespace WCS\CoavBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * user
+ * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="WCS\CoavBundle\Repository\userRepository")
+ * @ORM\Entity(repositoryClass="WCS\CoavBundle\Repository\UserRepository")
  */
-class user
+class User
 {
-    /**
-     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passengers")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $reservations;
     /**
      * @var int
      *
@@ -25,6 +20,12 @@ class user
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passengers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $reservations;
 
     /**
      * @var string
@@ -90,12 +91,16 @@ class user
     private $note;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="reviews", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\Review")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $reviews;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Review", mappedBy="userRated")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $reviewsRated;
     /**
      * @var bool
      *
@@ -126,7 +131,7 @@ class user
      *
      * @param string $userName
      *
-     * @return user
+     * @return User
      */
     public function setUserName($userName)
     {
@@ -150,7 +155,7 @@ class user
      *
      * @param string $firstName
      *
-     * @return user
+     * @return User
      */
     public function setFirstName($firstName)
     {
@@ -174,7 +179,7 @@ class user
      *
      * @param string $lastName
      *
-     * @return user
+     * @return User
      */
     public function setLastName($lastName)
     {
@@ -198,7 +203,7 @@ class user
      *
      * @param string $email
      *
-     * @return user
+     * @return User
      */
     public function setEmail($email)
     {
@@ -222,7 +227,7 @@ class user
      *
      * @param string $phoneNumber
      *
-     * @return user
+     * @return User
      */
     public function setPhoneNumber($phoneNumber)
     {
@@ -246,7 +251,7 @@ class user
      *
      * @param \DateTime $birthDate
      *
-     * @return user
+     * @return User
      */
     public function setBirthDate($birthDate)
     {
@@ -270,7 +275,7 @@ class user
      *
      * @param \DateTime $creationDate
      *
-     * @return user
+     * @return User
      */
     public function setCreationDate($creationDate)
     {
@@ -294,7 +299,7 @@ class user
      *
      * @param string $role
      *
-     * @return user
+     * @return User
      */
     public function setRole($role)
     {
@@ -318,7 +323,7 @@ class user
      *
      * @param integer $note
      *
-     * @return user
+     * @return User
      */
     public function setNote($note)
     {
@@ -342,7 +347,7 @@ class user
      *
      * @param integer $reviews
      *
-     * @return user
+     * @return User
      */
     public function setReviews($reviews)
     {
@@ -366,7 +371,7 @@ class user
      *
      * @param boolean $isACertifiedPilot
      *
-     * @return user
+     * @return User
      */
     public function setIsACertifiedPilot($isACertifiedPilot)
     {
@@ -390,7 +395,7 @@ class user
      *
      * @param boolean $isActive
      *
-     * @return user
+     * @return User
      */
     public function setIsActive($isActive)
     {
@@ -407,5 +412,80 @@ class user
     public function getIsActive()
     {
         return $this->isActive;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add reservation
+     *
+     * @param \WCS\CoavBundle\Entity\Reservation $reservation
+     *
+     * @return User
+     */
+    public function addReservation(\WCS\CoavBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation
+     *
+     * @param \WCS\CoavBundle\Entity\Reservation $reservation
+     */
+    public function removeReservation(\WCS\CoavBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Add reviewsRated
+     *
+     * @param \WCS\CoavBundle\Entity\Review $reviewsRated
+     *
+     * @return User
+     */
+    public function addReviewsRated(\WCS\CoavBundle\Entity\Review $reviewsRated)
+    {
+        $this->reviewsRated[] = $reviewsRated;
+
+        return $this;
+    }
+
+    /**
+     * Remove reviewsRated
+     *
+     * @param \WCS\CoavBundle\Entity\Review $reviewsRated
+     */
+    public function removeReviewsRated(\WCS\CoavBundle\Entity\Review $reviewsRated)
+    {
+        $this->reviewsRated->removeElement($reviewsRated);
+    }
+
+    /**
+     * Get reviewsRated
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReviewsRated()
+    {
+        return $this->reviewsRated;
     }
 }

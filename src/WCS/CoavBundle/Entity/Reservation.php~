@@ -12,8 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Reservation
 {
-
-
     /**
      * @var int
      *
@@ -44,9 +42,8 @@ class Reservation
     private $passengers;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="flight", type="string", length=32)
+     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\Flight")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $flight;
 
