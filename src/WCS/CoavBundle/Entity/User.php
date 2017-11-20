@@ -11,7 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="WCS\CoavBundle\Repository\UserRepository")
  */
 class User
+
 {
+
+    public function __toString()
+    {
+        return $this->firstName . ' - ' . $this->lastName;
+    }
+
     /**
      * @var int
      *
@@ -20,12 +27,6 @@ class User
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passengers")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $reservations;
 
     /**
      * @var string
@@ -90,17 +91,7 @@ class User
      */
     private $note;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\Review")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $reviews;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Review", mappedBy="userRated")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $reviewsRated;
     /**
      * @var bool
      *
@@ -115,6 +106,19 @@ class User
      */
     private $isActive;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passengers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $reservations;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -413,13 +417,6 @@ class User
     {
         return $this->isActive;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add reservation
@@ -453,39 +450,5 @@ class User
     public function getReservations()
     {
         return $this->reservations;
-    }
-
-    /**
-     * Add reviewsRated
-     *
-     * @param \WCS\CoavBundle\Entity\Review $reviewsRated
-     *
-     * @return User
-     */
-    public function addReviewsRated(\WCS\CoavBundle\Entity\Review $reviewsRated)
-    {
-        $this->reviewsRated[] = $reviewsRated;
-
-        return $this;
-    }
-
-    /**
-     * Remove reviewsRated
-     *
-     * @param \WCS\CoavBundle\Entity\Review $reviewsRated
-     */
-    public function removeReviewsRated(\WCS\CoavBundle\Entity\Review $reviewsRated)
-    {
-        $this->reviewsRated->removeElement($reviewsRated);
-    }
-
-    /**
-     * Get reviewsRated
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getReviewsRated()
-    {
-        return $this->reviewsRated;
     }
 }

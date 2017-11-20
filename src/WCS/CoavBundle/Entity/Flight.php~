@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Flight
 {
+    public function __toString() :string
+    {
+        return $this->nbFreeSeats . ' ' . $this->wasDone . ' ' . $this->departure;
+    }
     /**
      * @var int
      *
@@ -36,7 +40,7 @@ class Flight
     /**
      * @var int
      *
-     * @ORM\Column(name="nbFreeSeats", type="smallint")
+     * @ORM\Column(name="nbFreeSeats", type="integer")
      */
     private $nbFreeSeats;
 
@@ -70,13 +74,11 @@ class Flight
 
     /**
      * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $pilot;
 
     /**
      * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\PlaneModel")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $plane;
 

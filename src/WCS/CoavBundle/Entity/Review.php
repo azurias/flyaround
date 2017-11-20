@@ -29,14 +29,16 @@ class Review
     private $text;
 
     /**
-     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\User", inversedBy="reviewsRated")
-     * @ORM\JoinColumn(nullable=false)
+     * @var int
+     *
+     * @ORM\Column(name="userRated", type="integer")
      */
     private $userRated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @var string
+     *
+     * @ORM\Column(name="reviewAuthor", type="string", length=255)
      */
     private $reviewAuthor;
 
@@ -116,7 +118,7 @@ class Review
     /**
      * Set reviewAuthor
      *
-     * @param integer $reviewAuthor
+     * @param string $reviewAuthor
      *
      * @return Review
      */
@@ -130,7 +132,7 @@ class Review
     /**
      * Get reviewAuthor
      *
-     * @return int
+     * @return string
      */
     public function getReviewAuthor()
     {
@@ -184,35 +186,28 @@ class Review
     {
         return $this->note;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->userRated = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add userRated
+     * Set lol
      *
-     * @param \WCS\CoavBundle\Entity\User $userRated
+     * @param string $lol
      *
      * @return Review
      */
-    public function addUserRated(\WCS\CoavBundle\Entity\User $userRated)
+    public function setLol($lol)
     {
-        $this->userRated[] = $userRated;
+        $this->lol = $lol;
 
         return $this;
     }
 
     /**
-     * Remove userRated
+     * Get lol
      *
-     * @param \WCS\CoavBundle\Entity\User $userRated
+     * @return string
      */
-    public function removeUserRated(\WCS\CoavBundle\Entity\User $userRated)
+    public function getLol()
     {
-        $this->userRated->removeElement($userRated);
+        return $this->lol;
     }
 }
