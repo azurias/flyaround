@@ -30,15 +30,15 @@ class Review
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="userRated", type="integer")
+     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $userRated;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="reviewAuthor", type="string", length=255)
+     * @var int
+     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $reviewAuthor;
 
@@ -118,7 +118,7 @@ class Review
     /**
      * Set reviewAuthor
      *
-     * @param string $reviewAuthor
+     * @param integer $reviewAuthor
      *
      * @return Review
      */
@@ -132,7 +132,7 @@ class Review
     /**
      * Get reviewAuthor
      *
-     * @return string
+     * @return int
      */
     public function getReviewAuthor()
     {
@@ -185,29 +185,5 @@ class Review
     public function getNote()
     {
         return $this->note;
-    }
-
-    /**
-     * Set lol
-     *
-     * @param string $lol
-     *
-     * @return Review
-     */
-    public function setLol($lol)
-    {
-        $this->lol = $lol;
-
-        return $this;
-    }
-
-    /**
-     * Get lol
-     *
-     * @return string
-     */
-    public function getLol()
-    {
-        return $this->lol;
     }
 }
