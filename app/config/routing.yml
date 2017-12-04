@@ -29,3 +29,5 @@ wcs_coav:
 wcs_coav_listing:
     resource: "@WCSCoavBundle/Controller/ListingController.php"
     type:     annotation
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

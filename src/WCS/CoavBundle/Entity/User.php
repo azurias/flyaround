@@ -3,14 +3,15 @@
 namespace WCS\CoavBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="WCS\CoavBundle\Repository\UserRepository")
  */
-class User
+class User extends BaseUser
 
 {
 
@@ -26,14 +27,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="userName", type="string", length=32)
-     */
-    private $userName;
+    protected $id;
 
     /**
      * @var string
@@ -49,12 +43,6 @@ class User
      */
     private $lastName;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=64)
-     */
-    private $email;
 
     /**
      * @var string
@@ -117,6 +105,7 @@ class User
      */
     public function __construct()
     {
+        parent::__construct();
         $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -151,7 +140,7 @@ class User
      */
     public function getUserName()
     {
-        return $this->userName;
+        return $this->username;
     }
 
     /**
