@@ -32,14 +32,14 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=32)
+     * @ORM\Column(name="firstName", type="string", length=32, nullable=true)
      */
     private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=32)
+     * @ORM\Column(name="lastName", type="string", length=32, nullable=true)
      */
     private $lastName;
 
@@ -47,28 +47,28 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="phoneNumber", type="string", length=32)
+     * @ORM\Column(name="phoneNumber", type="string", length=32, nullable=true)
      */
     private $phoneNumber;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birthDate", type="date")
+     * @ORM\Column(name="birthDate", type="date", nullable=true)
      */
     private $birthDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creationDate", type="datetime")
+     * @ORM\Column(name="creationDate", type="datetime", nullable=true)
      */
     private $creationDate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", length=16)
+     * @ORM\Column(name="role", type="string", length=16, nullable=true)
      */
     private $role;
 
@@ -83,14 +83,14 @@ class User extends BaseUser
     /**
      * @var bool
      *
-     * @ORM\Column(name="isACertifiedPilot", type="boolean")
+     * @ORM\Column(name="isACertifiedPilot", type="boolean", nullable=true)
      */
     private $isACertifiedPilot;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="isActive", type="boolean")
+     * @ORM\Column(name="isActive", type="boolean", nullable=true)
      */
     private $isActive;
 
@@ -128,7 +128,7 @@ class User extends BaseUser
      */
     public function setUserName($userName)
     {
-        $this->userName = $userName;
+        $this->username = $userName;
 
         return $this;
     }
