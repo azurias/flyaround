@@ -64,8 +64,14 @@ class FlightController extends Controller
      * @Route("/{id}", name="flight_show")
      * @Method("GET")
      */
-    public function showAction(Flight $flight)
+    public function showAction(Flight $flight,FlightInfos $flightInfos)
     {
+        $distance = $flightInfos->getDistance(
+            $flight->getDeparture()->getLatitude(),
+            $flight->getDeparture()->getLongitude(),
+            $flight->getArrival()->getLatitude(),
+            $flight->getArrival()->getLongitude()
+        );
         $deleteForm = $this->createDeleteForm($flight);
 
         return $this->render('flight/show.html.twig', array(
